@@ -17,7 +17,7 @@ server.post('/api/messages', connector.listen());
 
 var bot = new builder.UniversalBot(connector, function (session) {
     session.send('Sorry, I did not understand \'%s\'.', session.message.text);
-	SendMailUsingNodeMailer(session,session.message.text){
+	SendMailUsingNodeMailer(session,session.message.text);
 	
 });
 
@@ -297,7 +297,7 @@ var mailOptions = {
   from: 'nodespeechbot@gmail.com',
   to: 'amen_bot@outlook.com',
   subject: 'Email send using Node.js',
-  text: 'I couldn\'t Understand question asked by user : '+txt+
+  text: 'I couldn\'t Understand question asked by user : '+txt
 };
 
 transporter.sendMail(mailOptions, function(error, info){
