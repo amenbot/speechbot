@@ -17,6 +17,8 @@ server.post('/api/messages', connector.listen());
 
 var bot = new builder.UniversalBot(connector, function (session) {
     session.send('Sorry, I did not understand \'%s\'.', session.message.text);
+	SendMailUsingNodeMailer(session,session.message.text){
+	
 });
 
 bot.dialog('login', require('./login'));
@@ -280,5 +282,33 @@ bot.dialog('Luis', [
 ]).triggerAction({
     matches:'Luis'
 })
+
+function SendMailUsingNodeMailer(session,txt){
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'nodespeechbot@gmail.com',
+    pass: 'amenbot2017'
+  }
+});
+
+var mailOptions = {
+  from: 'nodespeechbot@gmail.com',
+  to: 'amen_bot@outlook.com',
+  subject: 'Email send using Node.js',
+  text: 'I couldn\'t Understand question asked by user : '+txt+
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+	console.log('Email sent failed ');
+  } else {
+	console.log('Email sent to : amen_bot@outlook.com');
+    console.log('Email sent: ' + info.response);
+  }
+});
+}
 
 
