@@ -305,8 +305,8 @@ transporter.sendMail(mailOptions, function(error, info){
     console.log(error);
 	session.send('Email sent failed ');
   } else {
-	console.log('Email sent to : amen_bot@outlook.com');
-    session.send('Email sent: ' + info.response);
+	session.send('Email sent to : amen_bot@outlook.com');
+    //session.send('Email sent: ' + info.response);
   }
 });
 }
