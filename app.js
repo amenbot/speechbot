@@ -303,10 +303,10 @@ var mailOptions = {
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {
     console.log(error);
-	console.log('Email sent failed ');
+	session.send('Email sent failed ');
   } else {
 	console.log('Email sent to : amen_bot@outlook.com');
-    console.log('Email sent: ' + info.response);
+    session.send('Email sent: ' + info.response);
   }
 });
 }
