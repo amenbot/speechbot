@@ -4,14 +4,14 @@ var spellService = require('./spell-service');
 
 // Setup Restify Server
 var server = restify.createServer();
-server.listen(process.env.port || process.env.PORT || 81, function () {
+server.listen(process.env.port || process.env.PORT || 80 || 81, function () {
    console.log('%s listening to %s', server.name, server.url);
 });
  
 // Create chat bot
 var connector = new builder.ChatConnector({
    appId: '5d36ba4d-2a22-4d77-87ab-79ec2a0f663b',
-   appPassword: 'aryorcfsmqEht07Mc1eP3AT'
+   appPassword: 'V6PEscp8pzRN7RWQrkeCowf'
 });
 server.post('/api/messages', connector.listen());
 

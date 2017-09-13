@@ -34,7 +34,7 @@ var config =
      server: 'nodepeechbot.database.windows.net', // update me
      options: 
         {
-           database: 'userrolesdb' //update me
+           database: 'userdb' //update me
            , encrypt: true
         }
    }
@@ -60,6 +60,8 @@ connection.on('connect', function(err)
 					count=rowCount;
 					if(count>0)
 					session.privateConversationData['login'] = true;
+					else
+					session.privateConversationData['login'] = false;
 					userlogin(session);
 					session.endDialog();
                     console.log(count + ' row(s) returned');
