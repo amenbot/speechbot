@@ -1,13 +1,19 @@
 var restify = require('restify');
 var builder = require('botbuilder');
 var spellService = require('./spell-service');
-
+var Twit =  require('twit');
+var sentimentAnalysis = require('sentiment-analysis');
 // Setup Restify Server
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 80 || 81, function () {
    console.log('%s listening to %s', server.name, server.url);
 });
- 
+var T = new Twit({
+    consumer_key:'3UGIAbZhkun2Vgkw9iLx04ddo',
+    consumer_secret:'sexAzr9gA1lZnkr8mxsltIHTu3NgQ4jdFBYOg0Vw4EGIkY1TWD',
+    access_token:'1722061238-gGZDLo4h7bX7XnAJPQXTBmEmxUfRRgqHyiTi85c',
+    access_token_secret:'ThU8SyhWgtb16DJ54f0q2GnU1fwWkC01TmvZoGG6okmRN',
+  })
 // Create chat bot
 var connector = new builder.ChatConnector({
    appId: '5d36ba4d-2a22-4d77-87ab-79ec2a0f663b',
@@ -286,6 +292,53 @@ bot.dialog('Luis', [
 ]).triggerAction({
     matches:'Luis'
 })
+
+bot.dialog('tweets',[
+    function(session,args,next){
+        session.dialogData.profile=args ||{};
+        var params;
+         if (!session.dialogData.profile.params){
+             builder.Prompts.text(session,"What would you like to know using Twitter?");
+         } else {
+             next();
+         }},
+ function(session,results,next){
+     if (results.response){
+         //session.dialogData.profile.params=results.response;   
+         }
+    var params= {q: results.response,
+     count: 15}
+         T.get('search/tweets',params, gotdata);
+             function gotdata (err, data, response) 
+             {
+                var tweet = data.statuses;
+                 for(var i=0; i < tweet.length; i++)
+                 {
+                session.send(tweet[i].text);
+                var k=sentimentAnalysis(tweet[i].text);
+                var j=0;
+                 j=j+k;
+                session.send(String(k));
+                
+                 }
+                if(j>0){
+                    session.send('Trend is Positive')
+                }
+                if(j<0){
+                    session.send('Trend is negative')
+                }
+                else{
+                    session.send('Insufficient Information on Twitter')
+                }
+             
+             }
+    session.endDialog();
+ }
+ ]).triggerAction({
+     matches:'tweets'
+ })
+
+
 
 function SendMailUsingNodeMailer(session,txt){
 var nodemailer = require('nodemailer');

@@ -5,7 +5,9 @@
   "main": "Test.js",
   "dependencies": {
     "botbuilder": "^3.9.1",
-    "restify": "^5.2.0"
+    "restify": "^5.2.0",
+    "twit": "^2.2.9",
+    "sentiment-analysis":"0.1.2"
   },
   "devDependencies": {},
   "scripts": {
