@@ -1,9 +1,10 @@
+// test Update on GitHub from Desktop
 var restify = require('restify');
 var builder = require('botbuilder');
 var spellService = require('./spell-service');
 var Twit =  require('twit');
 var sentimentAnalysis = require('sentiment-analysis');
-// Setup Restify Server
+// Setup Restify Server *
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 80 || 81, function () {
    console.log('%s listening to %s', server.name, server.url);
