@@ -65,10 +65,10 @@ bot.dialog('olympics', function (session,args) {
     matches: 'olympics'
 });
 bot.dialog('host', function (session,args) {
-	var card = createHeroCard2(session);
+	var card = createHeroCard2(session).Convert.ToBase64String();
     // attach the card to the reply message
     var msg = new builder.Message(session).addAttachment(card);
-    session.send.Convert.ToBase64String(msg);
+    session.send(msg);
     session.endDialog();
     }).triggerAction({
     matches: 'host'
