@@ -404,7 +404,7 @@ function createHeroCard2(session) {
         .subtitle('Olympics host cities')
         .text('')
         .images([
-            builder.CardImage.create(session, './map.jpg')
+            builder.CardImage.create(session, 'map')
         ])
         .buttons([
             builder.CardAction.openUrl(session, 'https://en.wikipedia.org/wiki/List_of_Olympic_Games_host_cities', 'Host Cities')
