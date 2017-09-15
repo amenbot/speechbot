@@ -402,6 +402,7 @@ function createHeroCard2(session) {
     return new builder.HeroCard(session)
         .title('BotFramework Hero Card')
         .subtitle('Olympics Host Cities')
+		.text('')
         .images([
             builder.CardImage.create(session, 'https://github.com/amenbot/speechbot/blob/master/map.png')
         ])
@@ -449,7 +450,7 @@ connection.on('connect', function(err)
 							//showSlowPcConfirmationCard(session);
 						}
 					else
-						//session.send('Result Not Found');
+						session.send('Result Not Found');
 					//session.endDialog();
                     console.log(rowCount + ' row(s) returned');
                 }
