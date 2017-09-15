@@ -65,7 +65,7 @@ bot.dialog('olympics', function (session,args) {
     matches: 'olympics'
 });
 bot.dialog('host', function (session,args) {
-	var card = createHeroCard2(session).Convert.ToBase64String();
+	var card = createHeroCard2(session);
     // attach the card to the reply message
     var msg = new builder.Message(session).addAttachment(card);
     session.send(msg);
@@ -404,7 +404,7 @@ function createHeroCard2(session) {
         .subtitle('Olympics host cities')
         .text('')
         .images([
-            builder.CardImage.create(session, 'map.png')
+            builder.CardImage.create(session, 'https://cdn3.vox-cdn.com/assets/4645821/world_cup_hosts__1_.png')
         ])
         .buttons([
             builder.CardAction.openUrl(session, 'https://en.wikipedia.org/wiki/List_of_Olympic_Games_host_cities', 'Host Cities')
