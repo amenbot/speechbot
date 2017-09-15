@@ -55,7 +55,23 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
         }
     });
 }
-
+bot.dialog('olympics', function (session,args) {
+   session.privateConversationData['year'] = builder.EntityRecognizer.findEntity(args.intent.entities, 'year');
+   session.send('Year: '+session.privateConversationData['year']);
+   getcity(session);
+    session.endDialog();
+    }).triggerAction({
+    matches: 'olympics'
+});
+bot.dialog('host', function (session,args) {
+	var card = createHeroCard2(session);
+    // attach the card to the reply message
+    var msg = new builder.Message(session).addAttachment(card);
+    session.send(msg);
+    session.endDialog();
+    }).triggerAction({
+    matches: 'host'
+});
 bot.dialog('Help', function (session) {
     session.send('Hi! Welcome to BOTLAND');
     session.endDialog();
@@ -381,6 +397,77 @@ function createHeroCard(session) {
             builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Started')
         ]);
 }
+function createHeroCard2(session) {
+    return new builder.HeroCard(session)
+        .title('BotFramework Hero Card')
+        .subtitle('Olympics Host Cities')
+        .images([
+            builder.CardImage.create(session, 'map.png')
+        ])
+        .buttons([
+            builder.CardAction.openUrl(session, 'https://en.wikipedia.org/wiki/List_of_Olympic_Games_host_cities', 'Host Cities')
+        ]);
+}
+function getcity(session) 
+   { 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+// Create connection to database
+var config = 
+   {
+     userName: 'admin123', // update me
+     password: 'nodeBot123', // update me
+     server: 'nodepeechbot.database.windows.net', // update me
+     options: 
+        {
+           database: 'userdb' //update me
+           , encrypt: true
+        }
+   }
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) 
+   {
+     if (err) 
+       {
+          console.log(err);
+       }
+    else
+       {
+          console.log('Reading rows from the Table...');
+
+       // Read all rows from table
+     request = new Request(
+	"select city from Olympics where year='"+session.privateConversationData['year']+"'",
+		
+			function(err, rowCount, rows) 
+                {
+					if(rowCount>0)
+						{
+							//showSlowPcConfirmationCard(session);
+						}
+					else
+						//session.send('Result Not Found');
+					//session.endDialog();
+                    console.log(rowCount + ' row(s) returned');
+                }
+            );
+     request.on('row', function(columns) {
+        columns.forEach(function(column) {	
+		
+            //console.log('columns  '  + columns.rowCount);
+			session.send('City: '+column.value);
+			
+         });
+             });
+    connection.execSql(request);
+       }
+   }
+ );
+   	
+   }
+
 
 
 
