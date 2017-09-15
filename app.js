@@ -56,7 +56,8 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
     });
 }
 bot.dialog('olympics', function (session,args) {
-   session.privateConversationData['year'] = builder.EntityRecognizer.findEntity(args.intent.entities, 'year');
+  var yearentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'year');
+   session.privateConversationData['year']=yearentity.entity;
    session.send('Year: '+session.privateConversationData['year']);
    getcity(session);
     session.endDialog();
@@ -402,7 +403,7 @@ function createHeroCard2(session) {
         .title('BotFramework Hero Card')
         .subtitle('Olympics Host Cities')
         .images([
-            builder.CardImage.create(session, 'map.png')
+            builder.CardImage.create(session, 'https://github.com/amenbot/speechbot/blob/master/map.png')
         ])
         .buttons([
             builder.CardAction.openUrl(session, 'https://en.wikipedia.org/wiki/List_of_Olympic_Games_host_cities', 'Host Cities')
