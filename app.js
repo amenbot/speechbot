@@ -404,7 +404,7 @@ function createHeroCard2(session) {
         .subtitle('Olympics host cities')
         .text('')
         .images([
-            builder.CardImage.create(session, 'map.jpg')
+            builder.CardImage.create(session, 'https://www.google.com.pk/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiDj73b76fWAhXMtBQKHYv4AjgQjRwIBw&url=http%3A%2F%2Fwww.ict.mic.ul.ie%2Fnialllarkin%2Fpages%2Fhosts.html&psig=AFQjCNG-aTxVw_OBWh4twp10A_W0Qe8Fpg&ust=1505588314703164')
         ])
         .buttons([
             builder.CardAction.openUrl(session, 'https://en.wikipedia.org/wiki/List_of_Olympic_Games_host_cities', 'Host Cities')
