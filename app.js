@@ -403,8 +403,8 @@ function createHeroCard2(session) {
         .title('BotFramework Hero Card')
         .subtitle('Olympics host cities')
         .text('')
-        .images([
-            builder.CardImage.create(session, 'https://github.com/amenbot/speechbot/blob/master/map.jpg')
+		.images([
+            builder.CardImage.create(session, 'https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg')
         ])
         .buttons([
             builder.CardAction.openUrl(session, 'https://en.wikipedia.org/wiki/List_of_Olympic_Games_host_cities', 'Host Cities')
