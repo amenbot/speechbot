@@ -400,7 +400,7 @@ function createHeroCard(session) {
 }
 function createHeroCard2(session) {
     return new builder.HeroCard(session)
-        .title('BotFramework Hero Card')
+        .title('Cities')
         .subtitle('Olympics host cities')
         .text('')
         .images([
