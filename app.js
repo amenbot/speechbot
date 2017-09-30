@@ -59,7 +59,7 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
 bot.dialog('hairs', function (session,args) {
     var birthentity= builder.EntityRecognizer.findEntity(args.intent.entities, 'haircolor');
      session.privateConversationData['haircolor']=birthentity.entity;
-     session.send('Year: '+session.privateConversationData['haircolor']);
+     session.send('name: '+session.privateConversationData['haircolor']);
      getcolor(session);
       session.endDialog();
       }).triggerAction({
@@ -590,7 +590,7 @@ connection.on('connect', function(err)
 
        // Read all rows from table
      request = new Request(
-	"select name from student where color='"+session.privateConversationData['haircolor']+"'",
+	"select color from student where name='"+session.privateConversationData['haircolor']+"'",
 		
 			function(err, rowCount, rows) 
                 {
@@ -609,7 +609,7 @@ connection.on('connect', function(err)
         columns.forEach(function(column) {	
 		
             //console.log('columns  '  + columns.rowCount);
-			session.send('Name: '+column.value);
+			session.send('Color: '+column.value);
 			
          });
              });
