@@ -56,6 +56,17 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
     });
 }
 
+bot.dialog('hairs', function (session,args) {
+    var birthentity= builder.EntityRecognizer.findEntity(args.intent.entities, 'haircolor');
+     session.privateConversationData['haircolor']=birthentity.entity;
+     session.send('Year: '+session.privateConversationData['haircolor']);
+     getcolor(session);
+      session.endDialog();
+      }).triggerAction({
+      matches: 'hairs'
+  });
+
+
 bot.dialog('Student', function (session,args) {
     var birthentity= builder.EntityRecognizer.findEntity(args.intent.entities, 'birthyear');
      session.privateConversationData['birthyear']=birthentity.entity;
@@ -518,6 +529,68 @@ connection.on('connect', function(err)
        // Read all rows from table
      request = new Request(
 	"select nameid from student where birthyear='"+session.privateConversationData['birthyear']+"'",
+		
+			function(err, rowCount, rows) 
+                {
+					if(rowCount>0)
+						{
+							//showSlowPcConfirmationCard(session);
+						}
+					else
+                        session.send('Result Not Found');
+                        //SendMailUsingNodeMailer(session,session.message.text);}
+					//session.endDialog();
+                    console.log(rowCount + ' row(s) returned');
+                }
+            );
+     request.on('row', function(columns) {
+        columns.forEach(function(column) {	
+		
+            //console.log('columns  '  + columns.rowCount);
+			session.send('Name: '+column.value);
+			
+         });
+             });
+    connection.execSql(request);
+       }
+   }
+ );
+   	
+   }
+
+
+   function getcolor(session) 
+   { 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+// Create connection to database
+var config = 
+   {
+     userName: 'admin123', // update me
+     password: 'nodeBot123', // update me
+     server: 'nodepeechbot.database.windows.net', // update me
+     options: 
+        {
+           database: 'userdb' //update me
+           , encrypt: true
+        }
+   }
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) 
+   {
+     if (err) 
+       {
+          console.log(err);
+       }
+    else
+       {
+          console.log('Reading rows from the Table...');
+
+       // Read all rows from table
+     request = new Request(
+	"select name from student where color='"+session.privateConversationData['haircolor']+"'",
 		
 			function(err, rowCount, rows) 
                 {
