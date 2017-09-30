@@ -59,8 +59,8 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
 bot.dialog('Student', function (session,args) {
     var nameentity = builder.EntityRecognizer.findEntity.toString(args.intent.entities, 'nameid');
      session.privateConversationData['nameid']=nameentity.entity;
-     session.send.toString(nameentity.entity);
-     //getcolor(session);
+     session.send('Name: '+session.privateConversationData['nameid']);
+     getcolor(session);
       session.endDialog();
       }).triggerAction({
       matches: 'Student'
