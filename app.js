@@ -56,14 +56,14 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
     });
 }
 
-bot.dialog('Student', function (session,args) {
+bot.dialog('hair color', function (session,args) {
     var yearentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'name');
      session.privateConversationData['name']=yearentity.entity;
      session.send('Name: '+session.privateConversationData['name']);
      getcolor(session);
       session.endDialog();
       }).triggerAction({
-      matches: 'Student'
+      matches: 'hair color'
   });
 
 bot.dialog('olympics', function (session,args) {
