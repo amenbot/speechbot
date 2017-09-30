@@ -57,9 +57,9 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
 }
 
 bot.dialog('Student', function (session,args) {
-    var nameentity= String(builder.EntityRecognizer.findEntity(args.intent.entities, 'nameid'));
+    var nameentity= (builder.EntityRecognizer.findEntity(args.intent.entities, 'nameid'));
      session.privateConversationData['nameid'].toString()=nameentity.entity;
-     session.send('Name: '+session.privateConversationData['nameid']);
+     session.send('Name: '+(String(session.privateConversationData['nameid'])));
      getcolor(session);
       session.endDialog();
       }).triggerAction({
