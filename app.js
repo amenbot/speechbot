@@ -516,7 +516,7 @@ connection.on('connect', function(err)
 
        // Read all rows from table
      request = new Request(
-	"select color from Students where name='"+session.privateConversationData['name']+"'",
+	"select color from Student where name='"+session.privateConversationData['name']+"'",
 		
 			function(err, rowCount, rows) 
                 {
@@ -525,8 +525,8 @@ connection.on('connect', function(err)
 							//showSlowPcConfirmationCard(session);
 						}
 					else
-                       { session.send('Result Not Found');
-                        SendMailUsingNodeMailer(session,session.message.text);}
+                        session.send('Result Not Found');
+                        //SendMailUsingNodeMailer(session,session.message.text);}
 					//session.endDialog();
                     console.log(rowCount + ' row(s) returned');
                 }
