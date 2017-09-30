@@ -35,7 +35,7 @@ var bot = new builder.UniversalBot(connector, function (session) {
 
 bot.dialog('login', require('./login'));
 //Create LUIS recognizer that points at our model and add it as the root '/' dialog.
-var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/65942006-f24a-43a6-a94f-7f6501b8b6b0?subscription-key=e5565127236f454d88f4e5dd7c20b427&timezoneOffset=0&verbose=true&spellCheck=true&q=');/*here we use the URL that we copied earlier*/
+var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/f330211a-815a-42b8-b9b2-408161550553?subscription-key=e6af9064012048cb80b6e4dd77d5fb86&timezoneOffset=0&verbose=true&spellCheck=true&q=');/*here we use the URL that we copied earlier*/
 bot.recognizer(recognizer);
 
 // Spell Check
@@ -57,11 +57,11 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
 }
 
 bot.dialog('Student', function (session,args) {
-   // var nameentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'name');
-    // session.privateConversationData['name']=nameentity.entity;
-     session.send('what is your name?')
-     //getcolor(session);
-     // session.endDialog();
+    var nameentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'name');
+     session.privateConversationData['name']=nameentity.entity;
+     session.send('Name: '+session.privateConversationData['name']);
+     getcolor(session);
+      session.endDialog();
       }).triggerAction({
       matches: 'Student'
   });
@@ -75,6 +75,7 @@ bot.dialog('olympics', function (session,args) {
     }).triggerAction({
     matches: 'olympics'
 });
+
 bot.dialog('host', function (session,args) {
 	var card = createHeroCard2(session);
     // attach the card to the reply message
