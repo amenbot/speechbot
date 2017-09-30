@@ -59,7 +59,7 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
 bot.dialog('Student', function (session,args) {
     var nameentity= (builder.EntityRecognizer.findEntity(args.intent.entities, 'nameid'));
      session.privateConversationData['nameid'].toString()=nameentity.entity;
-     session.send('Name: '+(String(session.privateConversationData['nameid'])));
+     session.send('Name: '+(session.privateConversationData['nameid']));
      getcolor(session);
       session.endDialog();
       }).triggerAction({
@@ -69,8 +69,8 @@ bot.dialog('Student', function (session,args) {
 bot.dialog('olympics', function (session,args) {
   var yearentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'year');
    session.privateConversationData['year']=yearentity.entity;
-   session.send('Year: '+session.privateConversationData['year']);
-   getcity(session);
+   session.send(yearentity.entity);
+  // getcity(session);
     session.endDialog();
     }).triggerAction({
     matches: 'olympics'
