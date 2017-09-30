@@ -59,7 +59,7 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
 bot.dialog('Student', function (session,args) {
     var nameentity= (builder.EntityRecognizer.findEntity(args.intent.entities, 'birthyear'));
      session.privateConversationData['birthyear']=nameentity.entity;
-     session.send('Year: '+(session.privateConversationData['birthyear']));
+     session.send('Year: '+session.privateConversationData['birthyear']);
      getname(session);
       session.endDialog();
       }).triggerAction({
@@ -486,7 +486,7 @@ connection.on('connect', function(err)
 
 
 
-function getcolor(session) 
+function getname(session) 
    { 
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
@@ -517,7 +517,7 @@ connection.on('connect', function(err)
 
        // Read all rows from table
      request = new Request(
-	"select nameid from Student where birthyear='"+session.privateConversationData['birthyear']+"'",
+	"select nameid from student where birthyear='"+session.privateConversationData['birthyear']+"'",
 		
 			function(err, rowCount, rows) 
                 {
