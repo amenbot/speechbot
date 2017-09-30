@@ -60,7 +60,7 @@ bot.dialog('Student', function (session,args) {
     var nameentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'nameid');
      session.privateConversationData['nameid']=nameentity.entity;
      session.send('Name: '+session.privateConversationData['nameid']);
-    // getcolor(session);
+     getcolor(session);
       session.endDialog();
       }).triggerAction({
       matches: 'Student'
