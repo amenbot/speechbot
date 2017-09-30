@@ -57,9 +57,9 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
 }
 
 bot.dialog('Student', function (session,args) {
-    var nameentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'name');
-     session.privateConversationData['name']=nameentity.entity;
-     session.send('Name: '+session.privateConversationData['name']);
+    var nameentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'nameid');
+     session.privateConversationData['nameid']=nameentity.entity;
+     session.send('Name: '+session.privateConversationData['nameid']);
      getcolor(session);
       session.endDialog();
       }).triggerAction({
@@ -517,7 +517,7 @@ connection.on('connect', function(err)
 
        // Read all rows from table
      request = new Request(
-	"select color from Student where nameid='"+session.privateConversationData['name']+"'",
+	"select color from Student where nameid='"+session.privateConversationData['nameid']+"'",
 		
 			function(err, rowCount, rows) 
                 {
