@@ -57,10 +57,10 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
 }
 
 bot.dialog('Student', function (session,args) {
-    var nameentity= (builder.EntityRecognizer.findEntity(args.intent.entities, 'nameid'));
-     session.privateConversationData['nameid']=String(nameentity.entity);
-     session.send('Name: '+(session.privateConversationData['nameid']));
-     getcolor(session);
+    var nameentity= (builder.EntityRecognizer.findEntity(args.intent.entities, 'birthyear'));
+     session.privateConversationData['birthyear']=nameentity.entity;
+     session.send('Year: '+(session.privateConversationData['birthyear']));
+     getname(session);
       session.endDialog();
       }).triggerAction({
       matches: 'Student'
@@ -517,7 +517,7 @@ connection.on('connect', function(err)
 
        // Read all rows from table
      request = new Request(
-	"select color from student where nameid='"+session.privateConversationData['nameid']+"'",
+	"select nameid from Student where birthyear='"+session.privateConversationData['birthyear']+"'",
 		
 			function(err, rowCount, rows) 
                 {
@@ -536,7 +536,7 @@ connection.on('connect', function(err)
         columns.forEach(function(column) {	
 		
             //console.log('columns  '  + columns.rowCount);
-			session.send('Color: '+column.value);
+			session.send('Name: '+column.value);
 			
          });
              });
