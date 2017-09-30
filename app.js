@@ -485,7 +485,7 @@ connection.on('connect', function(err)
 
 
 
-   function getcity(session) 
+   function getcolor(session) 
    { 
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
