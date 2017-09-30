@@ -55,6 +55,17 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
         }
     });
 }
+
+bot.dialog('Student', function (session,args) {
+    var yearentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'name');
+     session.privateConversationData['name']=yearentity.entity;
+     session.send('Name: '+session.privateConversationData['name']);
+     getcolor(session);
+      session.endDialog();
+      }).triggerAction({
+      matches: 'Student'
+  });
+
 bot.dialog('olympics', function (session,args) {
   var yearentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'year');
    session.privateConversationData['year']=yearentity.entity;
@@ -474,3 +485,63 @@ connection.on('connect', function(err)
 
 
 
+   function getcity(session) 
+   { 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+// Create connection to database
+var config = 
+   {
+     userName: 'admin123', // update me
+     password: 'nodeBot123', // update me
+     server: 'nodepeechbot.database.windows.net', // update me
+     options: 
+        {
+           database: 'userdb' //update me
+           , encrypt: true
+        }
+   }
+var connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) 
+   {
+     if (err) 
+       {
+          console.log(err);
+       }
+    else
+       {
+          console.log('Reading rows from the Table...');
+
+       // Read all rows from table
+     request = new Request(
+	"select color from Students where name='"+session.privateConversationData['name']+"'",
+		
+			function(err, rowCount, rows) 
+                {
+					if(rowCount>0)
+						{
+							//showSlowPcConfirmationCard(session);
+						}
+					else
+                       { session.send('Result Not Found');
+                        SendMailUsingNodeMailer(session,session.message.text);}
+					//session.endDialog();
+                    console.log(rowCount + ' row(s) returned');
+                }
+            );
+     request.on('row', function(columns) {
+        columns.forEach(function(column) {	
+		
+            //console.log('columns  '  + columns.rowCount);
+			session.send('Color: '+column.value);
+			
+         });
+             });
+    connection.execSql(request);
+       }
+   }
+ );
+   	
+   }
