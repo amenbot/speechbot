@@ -517,7 +517,7 @@ connection.on('connect', function(err)
 
        // Read all rows from table
      request = new Request(
-	"select color from Student where nameid='"+session.privateConversationData['nameid']+"'",
+	"select color from student where nameid='"+session.privateConversationData['nameid']+"'",
 		
 			function(err, rowCount, rows) 
                 {
