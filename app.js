@@ -57,9 +57,9 @@ if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
 }
 
 bot.dialog('Student', function (session,args) {
-    var birthyearentity= (builder.EntityRecognizer.findEntity(args.intent.entities, 'birthyear'));
-     session.privateConversationData['birthyear']=birthyearentity.entity;
-     session.send(birthyearentity.entity);
+    var birthentity= builder.EntityRecognizer.findEntity(args.intent.entities, 'birth');
+     session.privateConversationData['birth']=nameentity.entity;
+     session.send('Year: '+session.privateConversationData['birth']);
     // getname(session);
       session.endDialog();
       }).triggerAction({
@@ -517,7 +517,7 @@ connection.on('connect', function(err)
 
        // Read all rows from table
      request = new Request(
-	"select nameid from student where birthyear='"+session.privateConversationData['birthyear']+"'",
+	"select nameid from student where birthyear='"+session.privateConversationData['birth']+"'",
 		
 			function(err, rowCount, rows) 
                 {
