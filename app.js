@@ -60,7 +60,7 @@ bot.dialog('Student', function (session,args) {
     var birthentity= builder.EntityRecognizer.findEntity(args.intent.entities, 'birthyear');
      session.privateConversationData['birthyear']=birthentity.entity;
      session.send('Year: '+session.privateConversationData['birthyear']);
-     //getname(session);
+     getname(session);
       session.endDialog();
       }).triggerAction({
       matches: 'Student'
@@ -70,7 +70,7 @@ bot.dialog('olympics', function (session,args) {
   var yearentity = builder.EntityRecognizer.findEntity(args.intent.entities, 'year');
    session.privateConversationData['year']=yearentity.entity;
    session.send('Year: '+session.privateConversationData['year']);
-   //sgetcity(session);
+   sgetcity(session);
     session.endDialog();
     }).triggerAction({
     matches: 'olympics'
@@ -517,7 +517,7 @@ connection.on('connect', function(err)
 
        // Read all rows from table
      request = new Request(
-	"select nameid from student where birthyear='"+session.privateConversationData['birth']+"'",
+	"select nameid from student where birthyear='"+session.privateConversationData['birthyear']+"'",
 		
 			function(err, rowCount, rows) 
                 {
